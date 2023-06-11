@@ -10,13 +10,14 @@ export interface loginUserType {
 }
 
 export type firestoreState = {
-  document: null | unknown;
+  document: unknown;
+  fetchedDocs: unknown;
   isPending: boolean;
   error: string | null;
-  success: boolean | null;
+  success: boolean;
 };
 
 export type firestoreReducerActions = {
   type: string;
-  payload?: string | null | unknown;
+  payload?: any;
 };

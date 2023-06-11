@@ -1,5 +1,5 @@
 // REACT
-import React, { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 // FIREBASE
 import {
   Timestamp,
@@ -7,6 +7,10 @@ import {
   collection,
   deleteDoc,
   doc,
+  onSnapshot,
+  where,
+  query,
+  orderBy,
 } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import { firestoreReducerActions, firestoreState } from "./model";
@@ -14,9 +18,10 @@ import { firestoreReducerActions, firestoreState } from "./model";
 // state
 const initialState = {
   document: null,
+  fetchedDocs: null,
   isPending: false,
   error: null,
-  success: null,
+  success: false,
 };
 
 // reducer function
@@ -27,6 +32,7 @@ const fireStoreReducer = (
   switch (action.type) {
     case "PENDING":
       return {
+        ...state,
         isPending: true,
         document: null,
         error: null,
@@ -34,6 +40,7 @@ const fireStoreReducer = (
       };
     case "SUCCESS":
       return {
+        ...state,
         document: action.payload,
         success: true,
         isPending: false,
@@ -41,6 +48,7 @@ const fireStoreReducer = (
       };
     case "ERROR":
       return {
+        ...state,
         error: action.payload,
         success: false,
         document: null,
@@ -48,18 +56,50 @@ const fireStoreReducer = (
       };
     case "DELETE":
       return {
+        ...state,
         error: null,
         success: true,
         document: null,
         isPending: false,
+      };
+    case "FETCHED":
+      return {
+        ...state,
+        fetchedDocs: action.payload,
       };
     default:
       return state;
   }
 };
 
-const useFirestore = () => {
+const useFirestore = (collectionType: string, id: string) => {
   const [state, dispatch] = useReducer(fireStoreReducer, initialState);
+
+  useEffect(() => {
+    // for everytime a transcation is done, we fetch the data and update the document
+    const q = query(
+      collection(db, collectionType),
+      where("uid", "==", id),
+      orderBy("transactionDate", "desc")
+    );
+    const unsubscribe = onSnapshot(
+      q,
+      (querySnapshot) => {
+        const results: object[] = [];
+        querySnapshot.forEach((doc) => {
+          results.push({ ...doc.data(), id: doc.id });
+        });
+        dispatch({ type: "FETCHED", payload: results });
+      },
+      (error) => {
+        console.log(error);
+        dispatch({ type: "ERROR", payload: "could not fetch data" });
+      }
+    );
+
+    // when page unmounts, the function is called to stop fetching from the database
+    return () => unsubscribe();
+  }, [collectionType]);
 
   // add transaction to the database
   const addData = async (uid: string, name: string, amount: string) => {
@@ -75,11 +115,13 @@ const useFirestore = () => {
       });
       // dispatch docRef to state
       dispatch({ type: "SUCCESS", payload: docRef });
-    } catch (error) {
+    } catch (error: any) {
+      console.log(error);
       // if error dispatch error to state
       dispatch({ type: "ERROR", payload: error.message });
     }
   };
+
   // delete transaction from the database
   const deleteData = async (id: string) => {
     dispatch({ type: "PENDING" });
@@ -91,7 +133,7 @@ const useFirestore = () => {
     }
   };
 
-  return { addData, deleteData, state };
+  return { addData, deleteData, ...state };
 };
 
 export default useFirestore;
