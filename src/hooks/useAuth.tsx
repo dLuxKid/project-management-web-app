@@ -2,12 +2,14 @@ import { useState } from "react";
 import { createUserType, loginUserType } from "./model";
 import {
   createUserWithEmailAndPassword,
-  updateCurrentUser,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
-import { auth } from "../firebase/firebase.js";
+import { auth, db, storage } from "../firebase/firebase.js";
 import { useAuthContext } from "../context/useContext.js";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore";
 
 const useAuth = () => {
   const [error, setError] = useState<string | null>(null);
@@ -17,16 +19,39 @@ const useAuth = () => {
   const { dispatch } = useAuthContext();
 
   //   signup function
-  const signup = ({ email, password, displayName }: createUserType) => {
+  const signup = ({ email, password, username, thumbNail }: createUserType) => {
     setPending(true);
     setError(null);
     setSuccess(false);
 
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredentials) => {
+      .then(async (userCredentials) => {
         const user = userCredentials.user;
+
+        // create image refrence
+        const uploadPath = `thumbnails/${user.uid}/${thumbNail?.name}`;
+        const projectStorageRef = ref(storage, uploadPath);
+
+        // upload to cloud
+        uploadBytes(projectStorageRef, thumbNail);
+
+        // get the photo url
+        getDownloadURL(ref(projectStorageRef)).then(async (url) => {
+          updateProfile(user, {
+            displayName: username,
+            photoURL: url,
+          });
+
+          // create user document
+          const docRef = await setDoc(doc(db, "users", user.uid), {
+            online: true,
+            displayName: username,
+            photoUrl: url,
+          });
+        });
+
+        // dispatch user
         dispatch({ type: "LOGIN", payload: user });
-        // updateCurrentUser(auth, { displayName: displayName });
         setError(null);
         setPending(false);
         setSuccess(true);
@@ -70,7 +95,7 @@ const useAuth = () => {
       });
   };
 
-  return { signup, login, logout, success, pending, error, setError };
+  return { signup, login, logout, success, pending, error };
 };
 
 export default useAuth;

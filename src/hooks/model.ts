@@ -1,7 +1,8 @@
 export interface createUserType {
   email: string;
   password: string;
-  displayName: string | null;
+  username: string;
+  thumbNail: File | null;
 }
 
 export interface loginUserType {
