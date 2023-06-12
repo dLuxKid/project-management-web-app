@@ -9,7 +9,7 @@ import {
 import { auth, db, storage } from "../firebase/firebase.js";
 import { useAuthContext } from "../context/useContext.js";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 
 const useAuth = () => {
   const [error, setError] = useState<string | null>(null);
@@ -33,21 +33,21 @@ const useAuth = () => {
         const projectStorageRef = ref(storage, uploadPath);
 
         // upload to cloud
-        uploadBytes(projectStorageRef, thumbNail);
+        await uploadBytes(projectStorageRef, thumbNail);
 
         // get the photo url
-        getDownloadURL(ref(projectStorageRef)).then(async (url) => {
-          updateProfile(user, {
-            displayName: username,
-            photoURL: url,
-          });
+        const url = await getDownloadURL(ref(projectStorageRef));
+        await updateProfile(user, {
+          displayName: username,
+          photoURL: url,
+        });
 
-          // create user document
-          const docRef = await setDoc(doc(db, "users", user.uid), {
-            online: true,
-            displayName: username,
-            photoUrl: url,
-          });
+        // create user document
+        await setDoc(doc(db, "users", user.uid), {
+          // uid: user.uid,
+          online: true,
+          displayName: username,
+          photoUrl: url,
         });
 
         // dispatch user
