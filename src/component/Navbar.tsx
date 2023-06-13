@@ -3,8 +3,13 @@ import { Icon } from "@iconify/react";
 // styles
 import "../styles/navbar.css";
 import { NavLink } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import { useAuthContext } from "../context/useContext";
 
 const Navbar: React.FC = () => {
+  const { logout, pending } = useAuth();
+  const { user } = useAuthContext();
+
   return (
     <nav className="navbar">
       <ul>
@@ -14,15 +19,22 @@ const Navbar: React.FC = () => {
           </span>
           <span>Collab</span>
         </li>
-        <li>
-          <NavLink to="/login">Login</NavLink>
-        </li>
-        <li>
-          <NavLink to="/signup">Signup</NavLink>
-        </li>
-        <li>
-          <button className="btn">Log out</button>
-        </li>
+        {!user?.uid ? (
+          <>
+            <li>
+              <NavLink to="/login">Login</NavLink>
+            </li>
+            <li>
+              <NavLink to="/signup">Signup</NavLink>
+            </li>
+          </>
+        ) : (
+          <li>
+            <button className="btn" onClick={logout} disabled={pending}>
+              Log out
+            </button>
+          </li>
+        )}
       </ul>
     </nav>
   );

@@ -1,6 +1,7 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import "../styles/signup.css";
 import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   username: "",
@@ -28,9 +29,11 @@ const authReducer = (state: authState, action: authActions) => {
 };
 
 const Signup: React.FC = () => {
+  const navigate = useNavigate();
+
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const { signup, pending, error } = useAuth();
+  const { signup, pending, error, success } = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ name: e.target.name, value: e.target.value });
@@ -66,6 +69,11 @@ const Signup: React.FC = () => {
       thumbNail: state.thumbnail,
     });
   };
+
+  useEffect(() => {
+    if (success) navigate("/");
+  }, [success]);
+
   return (
     <div>
       <form className="auth-form" onSubmit={handleSubmit}>

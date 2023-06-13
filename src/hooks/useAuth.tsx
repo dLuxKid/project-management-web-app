@@ -9,14 +9,14 @@ import {
 import { auth, db, storage } from "../firebase/firebase.js";
 import { useAuthContext } from "../context/useContext.js";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 
 const useAuth = () => {
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
 
-  const { dispatch } = useAuthContext();
+  const { dispatch, user } = useAuthContext();
 
   //   signup function
   const signup = ({ email, password, username, thumbNail }: createUserType) => {
@@ -44,7 +44,6 @@ const useAuth = () => {
 
         // create user document
         await setDoc(doc(db, "users", user.uid), {
-          // uid: user.uid,
           online: true,
           displayName: username,
           photoUrl: url,
@@ -71,9 +70,14 @@ const useAuth = () => {
     setSuccess(false);
 
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
         dispatch({ type: "LOGIN", payload: user });
+        // update online status
+        const uid = user.uid;
+        await updateDoc(doc(db, "users", uid), {
+          online: true,
+        });
         setError(null);
         setPending(false);
         setSuccess(true);
@@ -87,11 +91,24 @@ const useAuth = () => {
   };
 
   //   log out function
-  const logout = () => {
+  const logout = async () => {
+    setError(null);
+    setPending(true);
+
     signOut(auth)
-      .then(() => dispatch({ type: "LOGOUT" }))
+      .then(async () => {
+        // update online status
+        const uid = user.uid;
+        await updateDoc(doc(db, "users", uid), {
+          online: false,
+        });
+        setError(null);
+        setPending(false);
+        dispatch({ type: "LOGOUT" });
+      })
       .catch((error) => {
         setError(error.message);
+        setPending(false);
       });
   };
 
