@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import "../styles/sidebar.css";
 import { Icon } from "@iconify/react";
 import { useAuthContext } from "../context/useContext";
+import OnlineUsers from "./OnlineUsers";
+import Avatar from "./Avatar";
 
 const Sidebar: React.FC = () => {
   const { user } = useAuthContext();
@@ -11,9 +13,7 @@ const Sidebar: React.FC = () => {
     <aside className="sidebar">
       <div className="sidebar-content">
         <div className="user">
-          <div className="avatar">
-            <img src={user?.photoURL} alt="display photo" />
-          </div>
+          <Avatar photoURL={user?.photoURL} />
           <p>Hey {user?.displayName}</p>
         </div>
         <nav className="links">

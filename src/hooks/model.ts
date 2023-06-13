@@ -10,9 +10,15 @@ export interface loginUserType {
   password: string;
 }
 
+export type docs = {
+  displayName: string;
+  online: boolean;
+  photoUrl: string;
+  id: string;
+};
+
 export type firestoreState = {
-  document: unknown;
-  fetchedDocs: unknown;
+  fetchedDocs: docs[];
   isPending: boolean;
   error: string | null;
   success: boolean;

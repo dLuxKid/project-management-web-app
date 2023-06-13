@@ -13,6 +13,7 @@ import Sidebar from "./component/Sidebar";
 import { useAuthContext } from "./context/useContext";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebase";
+import OnlineUsers from "./component/OnlineUsers";
 
 const App: React.FC = () => {
   const { dispatch, authIsReady, user } = useAuthContext();
@@ -52,6 +53,7 @@ const App: React.FC = () => {
               </Route>
             </Routes>
           </div>
+          {user?.uid && <OnlineUsers />}
         </>
       )}
     </main>
