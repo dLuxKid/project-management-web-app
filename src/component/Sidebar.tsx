@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import "../styles/sidebar.css";
 import { Icon } from "@iconify/react";
 import { useAuthContext } from "../context/useContext";
-import OnlineUsers from "./OnlineUsers";
 import Avatar from "./Avatar";
 
 const Sidebar: React.FC = () => {

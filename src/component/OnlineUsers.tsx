@@ -16,6 +16,7 @@ const OnlineUsers: React.FC<Props> = () => {
       {fetchedDocs &&
         fetchedDocs.map((user: docs) => (
           <div key={user?.id} className="user-list-item">
+            {user.online && <span className="show-online"></span>}
             <span>{user.displayName}</span>
             <Avatar photoURL={user.photoUrl} />
           </div>

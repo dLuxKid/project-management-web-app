@@ -50,10 +50,7 @@ const useFirestore = (collectionType: string) => {
   useEffect(() => {
     dispatch({ type: "PENDING" });
     // for everytime a transcation is done, we fetch the data and update the document
-    const q = query(
-      collection(db, collectionType),
-      where("online", "==", true)
-    );
+    const q = query(collection(db, collectionType));
     const unsubscribe = onSnapshot(
       q,
       (querySnapshot) => {

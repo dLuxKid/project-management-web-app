@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes, Outlet, useNavigate, Navigate } from "react-router-dom";
+import { Route, Routes, Outlet, Navigate } from "react-router-dom";
 // styles
 import "./App.css";
 // pages
@@ -17,8 +17,6 @@ import OnlineUsers from "./component/OnlineUsers";
 
 const App: React.FC = () => {
   const { dispatch, authIsReady, user } = useAuthContext();
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) =>
