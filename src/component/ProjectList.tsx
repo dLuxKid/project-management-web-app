@@ -13,8 +13,7 @@ const ProjectList: React.FC<Props> = ({ projects }) => {
     <div className="project-list">
       {projects?.length ? (
         projects.map((project: projectDocument, index: number) => (
-          <NavLink key={index} to={`/project/${projects.indexOf(project) + 1}`}>
-            {/* <NavLink key={index} to={`/project/${project.id}`}> */}
+          <NavLink key={index} to={`/project/${project.id}`}>
             <h4>{project.name}</h4>
             <p>Due by {project.dueDate.toDate().toDateString()}</p>
             <div className="assigned-to">

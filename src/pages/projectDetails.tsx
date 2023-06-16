@@ -3,11 +3,34 @@ import "../styles/projectDetails.css";
 import { useParams } from "react-router-dom";
 import useDocument from "../hooks/useDocument";
 
-const ProjectDetails: React.FC = () => {
-  const { id } = useParams;
+type Params = {
+  id: string;
+};
 
-  const { document, error } = useDocument("project", id);
-  return <div>ProjectDetails</div>;
+const ProjectDetails: React.FC = () => {
+  const { id } = useParams<Params>();
+
+  const validId: string = id ?? "*";
+
+  const { document, error } = useDocument("project", validId);
+
+  if (error) {
+    return (
+      <div>
+        <p className="error">{error}</p>
+      </div>
+    );
+  }
+
+  if (!document) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div className="project-details">
+      <h1>{document.name}</h1>
+    </div>
+  );
 };
 
 export default ProjectDetails;
