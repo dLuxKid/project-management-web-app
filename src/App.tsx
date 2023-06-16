@@ -45,7 +45,6 @@ const App: React.FC = () => {
               <Route
                 element={user?.uid ? <Outlet /> : <Navigate to="/login" />}
               >
-                <Route path="/project" element={<ProjectDetails />} />
                 <Route path="project/:id" element={<ProjectDetails />} />
                 <Route path="/create" element={<CreateProject />} />
               </Route>

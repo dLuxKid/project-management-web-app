@@ -20,7 +20,7 @@ export type docs = {
 };
 
 export type firestoreState = {
-  fetchedDocs: docs[];
+  fetchedDocs: docs[] | projectDocument[];
   isPending: boolean;
   error: string | null;
   success: boolean;
@@ -56,4 +56,5 @@ export type projectDocument = {
   createdBy: onTheProjectType;
   assignedUsersList: onTheProjectType[];
   createdAt: Timestamp;
+  id?: string;
 };

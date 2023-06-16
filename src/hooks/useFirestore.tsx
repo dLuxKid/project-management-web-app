@@ -49,7 +49,7 @@ const useFirestore = (collectionType: string) => {
 
   useEffect(() => {
     dispatch({ type: "PENDING" });
-    // for everytime someone signup is done, we fetch the data and update the document
+    // we fetch the data and update the document
     const q = query(collection(db, collectionType));
     const unsubscribe = onSnapshot(
       q,
