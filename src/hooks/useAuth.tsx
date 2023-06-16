@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createUserType, loginUserType } from "./model";
+import { createUserType, loginUserType } from "../types/model.js";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,

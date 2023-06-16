@@ -1,9 +1,9 @@
 // REACT
 import { useReducer, useEffect } from "react";
 // FIREBASE
-import { collection, onSnapshot, where, query } from "firebase/firestore";
+import { collection, onSnapshot, query } from "firebase/firestore";
 import { db } from "../firebase/firebase";
-import { firestoreReducerActions, firestoreState } from "./model";
+import { firestoreReducerActions, firestoreState } from "../types/model";
 
 // state
 const initialState = {
@@ -31,13 +31,13 @@ const fireStoreReducer = (
         ...state,
         error: action.payload,
         success: false,
-        document: null,
         isPending: false,
       };
     case "FETCHED":
       return {
         ...state,
         fetchedDocs: action.payload,
+        isPending: false,
       };
     default:
       return state;
@@ -49,7 +49,7 @@ const useFirestore = (collectionType: string) => {
 
   useEffect(() => {
     dispatch({ type: "PENDING" });
-    // for everytime a transcation is done, we fetch the data and update the document
+    // for everytime someone signup is done, we fetch the data and update the document
     const q = query(collection(db, collectionType));
     const unsubscribe = onSnapshot(
       q,

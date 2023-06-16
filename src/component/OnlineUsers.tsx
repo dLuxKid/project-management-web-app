@@ -2,7 +2,7 @@ import React from "react";
 // styles
 import "../styles/onlineUsers.css";
 import useFirestore from "../hooks/useFirestore";
-import { docs } from "../hooks/model";
+import { docs } from "../types/model";
 import Avatar from "./Avatar";
 
 type Props = {};
