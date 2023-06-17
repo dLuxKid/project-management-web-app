@@ -2,6 +2,8 @@ import React from "react";
 import "../styles/projectDetails.css";
 import { useParams } from "react-router-dom";
 import useDocument from "../hooks/useDocument";
+import ProjectSummary from "../component/ProjectSummary";
+import ProjectComment from "../component/ProjectComment";
 
 type Params = {
   id: string;
@@ -23,12 +25,13 @@ const ProjectDetails: React.FC = () => {
   }
 
   if (!document) {
-    return <div>Loading...</div>;
+    return <div className="loading">Loading...</div>;
   }
 
   return (
     <div className="project-details">
-      <h1>{document.name}</h1>
+      <ProjectSummary project={document} />
+      <ProjectComment id={document.id} />
     </div>
   );
 };

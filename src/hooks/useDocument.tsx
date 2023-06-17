@@ -21,7 +21,7 @@ const useDocument = (collection: string, id: string) => {
             details: doc.data()?.details,
             dueDate: doc.data()?.dueDate,
             name: doc.data()?.name,
-            // createdAt: doc.data()?.createdAt,
+            createdAt: doc.data()?.createdAt,
           });
           setError(null);
         } else {

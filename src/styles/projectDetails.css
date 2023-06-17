@@ -1,0 +1,56 @@
+.project-details {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  align-items: start;
+  grid-gap: 2rem;
+}
+
+.project-summary {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.project-summary .due-date {
+  margin: 10px 0;
+  font-size: 0.9rem;
+  color: var(--title-color);
+}
+
+.project-summary .details {
+  margin: 1.5rem 0;
+  color: var(--text-color);
+  line-height: 1.8rem;
+}
+
+.project-summary h2 {
+  text-transform: capitalize;
+}
+
+.project-summary h4 {
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+.project-summary .assigned-users {
+  display: flex;
+  margin-top: 1.125rem;
+}
+
+.project-summary .assigned-users .avatar {
+  margin-right: 10px;
+}
+
+.project-summary + .btn {
+  margin-top: 1.125rem;
+}
+
+.project-comment label {
+  margin-bottom: 0;
+}
+
+.project-comment textarea {
+  height: 3.5rem;
+  font-size: 1.25rem;
+  margin: 0.25rem 0 1rem;
+}

@@ -50,6 +50,7 @@ const category = [
   { value: "design", label: "Design" },
   { value: "sales", label: "Sales" },
   { value: "marketing", label: "Marketing" },
+  { value: "meeting", label: "Meeting" },
 ];
 
 const CreateProject: React.FC = () => {
@@ -124,6 +125,7 @@ const CreateProject: React.FC = () => {
       comments: [],
       createdBy,
       assignedUsersList,
+      createdAt: Timestamp.fromDate(new Date()),
     };
 
     // add the project object to database

@@ -36,9 +36,10 @@ export type submittedProjectDetails = {
   details: string;
   category: string;
   dueDate: Timestamp;
-  comments: string[];
+  comments: projectComment[];
   createdBy: onTheProjectType;
   assignedUsersList: onTheProjectType[];
+  createdAt: Timestamp;
 };
 
 export type onTheProjectType = {
@@ -52,9 +53,17 @@ export type projectDocument = {
   details: string;
   category: string;
   dueDate: Timestamp;
-  comments: string[];
+  comments: projectComment[];
   createdBy: onTheProjectType;
   assignedUsersList: onTheProjectType[];
-  // createdAt: Timestamp;
-  id?: string;
+  createdAt: Timestamp;
+  id: string;
+};
+
+export type projectComment = {
+  displayName: string;
+  photoURL: string;
+  comment: string;
+  createdAt: Timestamp;
+  id: number;
 };

@@ -12,14 +12,14 @@ const ProjectList: React.FC<Props> = ({ projects }) => {
   return (
     <div className="project-list">
       {projects?.length ? (
-        projects.map((project: projectDocument, index: number) => (
-          <NavLink key={index} to={`/project/${project.id}`}>
+        projects.map((project: projectDocument) => (
+          <NavLink key={project.id} to={`/project/${project.id}`}>
             <h4>{project.name}</h4>
             <p>Due by {project.dueDate.toDate().toDateString()}</p>
             <div className="assigned-to">
               <ul>
                 {project.assignedUsersList.map((user: onTheProjectType) => (
-                  <li>
+                  <li key={user.photoURL}>
                     <Avatar photoURL={user.photoURL} />
                   </li>
                 ))}
