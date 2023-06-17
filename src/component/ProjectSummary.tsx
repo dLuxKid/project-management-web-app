@@ -1,16 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { onTheProjectType, projectDocument } from "../types/model";
 import Avatar from "./Avatar";
 import "../styles/projectDetails.css";
+import { useAuthContext } from "../context/useContext";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../firebase/firebase";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   project: projectDocument;
 };
 
 const ProjectSummary: React.FC<Props> = ({ project }) => {
+  const { user } = useAuthContext();
+  const [error, setError] = useState<string>("");
+  const [pending, setPending] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const handleDeleteProject = async () => {
+    setPending(true);
+    try {
+      await deleteDoc(doc(db, "project", project.id));
+      navigate("/");
+      setPending(false);
+    } catch (error) {
+      setError("could not delete project");
+      setPending(false);
+    }
+  };
+
   return (
     <div className="project-summary">
       <h2 className="page-title">{project.name}</h2>
+      <p>By {project.createdBy.displayName}</p>
       <p className="due-date">
         Project due by {project.dueDate.toDate().toDateString()}
       </p>
@@ -23,6 +45,16 @@ const ProjectSummary: React.FC<Props> = ({ project }) => {
           </div>
         ))}
       </div>
+      {user.uid === project.createdBy.id && (
+        <button
+          className="btn"
+          disabled={pending}
+          onClick={handleDeleteProject}
+        >
+          {pending ? "deleting project" : "Mark as complete"}
+        </button>
+      )}
+      {error && <p className="error">{error}</p>}
     </div>
   );
 };

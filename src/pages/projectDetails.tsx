@@ -31,7 +31,7 @@ const ProjectDetails: React.FC = () => {
   return (
     <div className="project-details">
       <ProjectSummary project={document} />
-      <ProjectComment id={document.id} />
+      <ProjectComment project={document} />
     </div>
   );
 };

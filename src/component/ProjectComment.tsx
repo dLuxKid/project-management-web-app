@@ -3,12 +3,14 @@ import { useAuthContext } from "../context/useContext";
 import { updateDoc, doc, Timestamp, arrayUnion } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import "../styles/projectDetails.css";
+import { projectDocument } from "../types/model";
+import Avatar from "./Avatar";
 
 type Props = {
-  id: string;
+  project: projectDocument;
 };
 
-const ProjectComment: React.FC<Props> = ({ id }) => {
+const ProjectComment: React.FC<Props> = ({ project }) => {
   const { user } = useAuthContext();
 
   const [newComment, setNewComment] = useState<string>("");
@@ -36,7 +38,7 @@ const ProjectComment: React.FC<Props> = ({ id }) => {
     }
 
     try {
-      await updateDoc(doc(db, "project", id), {
+      await updateDoc(doc(db, "project", project.id), {
         comments: arrayUnion(commentToAdd),
       });
       setPending(false);
@@ -50,6 +52,23 @@ const ProjectComment: React.FC<Props> = ({ id }) => {
   return (
     <div className="project-comment">
       <h4>Project Comment</h4>
+      <ul>
+        {project.comments?.length > 0 &&
+          project.comments.map((comment) => (
+            <li key={comment.id}>
+              <div className="comment-author">
+                <Avatar photoURL={comment.photoURL} />
+                <p>{comment.displayName}</p>
+              </div>
+              <div className="comment-date">
+                <p>{}</p>
+              </div>
+              <div className="comment-content">
+                <p>{comment.comment}</p>
+              </div>
+            </li>
+          ))}
+      </ul>
       <form className="add-comment" onSubmit={handleSubmit}>
         <label>
           <span>Add a comment</span>
