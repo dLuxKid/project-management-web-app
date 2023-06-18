@@ -32,11 +32,20 @@ const useAuth = () => {
         const uploadPath = `thumbnails/${user.uid}/${thumbNail?.name}`;
         const projectStorageRef = ref(storage, uploadPath);
 
-        // upload to cloud
-        await uploadBytes(projectStorageRef, thumbNail);
+        if (thumbNail) {
+          // Convert the thumbnail File to Blob
+          const thumbnailBlob = new Blob([thumbNail], {
+            type: thumbNail?.type,
+          });
+
+          // upload to cloud
+          await uploadBytes(projectStorageRef, thumbnailBlob);
+        }
 
         // get the photo url
         const url = await getDownloadURL(ref(projectStorageRef));
+
+        // update user profile
         await updateProfile(user, {
           displayName: username,
           photoURL: url,
