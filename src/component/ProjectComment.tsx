@@ -5,6 +5,7 @@ import { db } from "../firebase/firebase";
 import "../styles/projectDetails.css";
 import { projectDocument } from "../types/model";
 import Avatar from "./Avatar";
+import { formatDistanceToNow } from "date-fns";
 
 type Props = {
   project: projectDocument;
@@ -61,7 +62,11 @@ const ProjectComment: React.FC<Props> = ({ project }) => {
                 <p>{comment.displayName}</p>
               </div>
               <div className="comment-date">
-                <p>{}</p>
+                <p>
+                  {formatDistanceToNow(comment.createdAt.toDate(), {
+                    addSuffix: true,
+                  })}
+                </p>
               </div>
               <div className="comment-content">
                 <p>{comment.comment}</p>

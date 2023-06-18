@@ -11,6 +11,10 @@
   border-radius: 4px;
 }
 
+.project-summary .page-title {
+  margin-bottom: 10px;
+}
+
 .project-summary .due-date {
   margin: 10px 0;
   font-size: 0.9rem;
@@ -81,9 +85,9 @@
 }
 
 .comment-date {
-  color: var(--text-color);
+  color: var(--title-color);
   font-size: 0.9rem;
-  margin: 4px 0 10px;
+  margin: 4px 0 1rem;
 }
 
 .comment-content {
