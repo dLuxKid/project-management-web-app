@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, Outlet, Navigate } from "react-router-dom";
 // styles
 import "./App.css";
@@ -14,9 +14,12 @@ import { useAuthContext } from "./context/useContext";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebase";
 import OnlineUsers from "./component/OnlineUsers";
+import Error from "./component/Error";
 
 const App: React.FC = () => {
   const { dispatch, authIsReady, user } = useAuthContext();
+
+  const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) =>
@@ -25,6 +28,20 @@ const App: React.FC = () => {
     unsub();
     return () => unsub();
   }, []);
+
+  useEffect(() => {
+    const screenResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", screenResize);
+    return () => window.removeEventListener("resize", screenResize);
+  }, []);
+
+  if (user?.uid && screenWidth < 992) {
+    return (
+      <Error error="We are not optimized for small screens please continue on a laptop" />
+    );
+  }
 
   return (
     <main className="App">
