@@ -53,7 +53,7 @@ const category = [
   { value: "meeting", label: "Meeting" },
 ];
 
-const CreateProject: React.FC = () => {
+const CreateProject = () => {
   // usereducer hook
   const [state, dispatch] = useReducer(projectReducers, initialState);
 

@@ -1,9 +1,8 @@
-import React from "react";
 import "../styles/dashboard.css";
 import useFirestore from "../hooks/useFirestore";
 import ProjectFilter from "../component/ProjectFilter";
 
-const Dashboard: React.FC = () => {
+const Dashboard = () => {
   const { fetchedDocs, error, isPending } = useFirestore("project");
 
   return (

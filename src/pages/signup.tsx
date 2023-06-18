@@ -28,7 +28,7 @@ const authReducer = (state: authState, action: authActions) => {
   return { ...state, [action.name]: action.value };
 };
 
-const Signup: React.FC = () => {
+const Signup = () => {
   const navigate = useNavigate();
 
   const [state, dispatch] = useReducer(authReducer, initialState);
