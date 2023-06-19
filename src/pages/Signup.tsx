@@ -25,6 +25,9 @@ type authActions =
   | { name: "thumbnail"; value: File };
 
 const authReducer = (state: authState, action: authActions) => {
+  if (action.name === "error") {
+    return { ...state, error: action.value, thumbnail: null };
+  }
   return { ...state, [action.name]: action.value };
 };
 
