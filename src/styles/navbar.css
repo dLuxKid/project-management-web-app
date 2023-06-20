@@ -32,3 +32,28 @@
   color: #333;
   margin-right: 1.25rem;
 }
+
+.navbar ul li:last-child a {
+  margin-right: 0;
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.5rem 0;
+  }
+
+  .navbar .logo .icon {
+    margin-right: 0.25rem;
+    font-size: 1.2rem;
+  }
+
+  .navbar ul {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .navbar a {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+  }
+}

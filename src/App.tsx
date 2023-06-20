@@ -65,6 +65,7 @@ const App: React.FC = () => {
                 <Route path="project/:id" element={<ProjectDetails />} />
                 <Route path="/create" element={<CreateProject />} />
               </Route>
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </div>
           {user?.uid && <OnlineUsers />}

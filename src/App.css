@@ -7,3 +7,9 @@
   padding: 0 2rem;
   padding-bottom: 5%;
 }
+
+@media (max-width: 480px) {
+  .App .container {
+    padding: 0 1rem;
+  }
+}
