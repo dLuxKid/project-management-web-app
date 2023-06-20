@@ -1,12 +1,14 @@
-import React from "react";
+// react
+import { NavLink } from "react-router-dom";
+// icon
 import { Icon } from "@iconify/react";
 // styles
 import "../styles/navbar.css";
-import { NavLink } from "react-router-dom";
+// hooks
 import useAuth from "../hooks/useAuth";
 import { useAuthContext } from "../context/useContext";
 
-const Navbar: React.FC = () => {
+const Navbar = () => {
   const { logout, pending } = useAuth();
   const { user } = useAuthContext();
 

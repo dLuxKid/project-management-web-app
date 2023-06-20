@@ -1,7 +1,10 @@
+// react
 import React, { useReducer, useEffect } from "react";
-import "../styles/login.css";
-import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+// styles
+import "../styles/login.css";
+// hook
+import useAuth from "../hooks/useAuth";
 
 const initialState = {
   email: "",

@@ -27,3 +27,7 @@
 .project-filter button.active {
   color: var(--primary-color);
 }
+
+.fetching {
+  margin-top: 1rem;
+}

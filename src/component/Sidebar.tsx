@@ -1,13 +1,17 @@
-import React from "react";
+// react
 import { NavLink } from "react-router-dom";
 // styles
 import "../styles/sidebar.css";
+// icon
 import { Icon } from "@iconify/react";
+// hook
 import { useAuthContext } from "../context/useContext";
+// component
 import Avatar from "./Avatar";
 
-const Sidebar: React.FC = () => {
+const Sidebar = () => {
   const { user } = useAuthContext();
+
   return (
     <aside className="sidebar">
       <div className="sidebar-content">

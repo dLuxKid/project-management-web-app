@@ -1,6 +1,10 @@
-import "../styles/projectDetails.css";
+// react
 import { useParams } from "react-router-dom";
+// styles
+import "../styles/projectDetails.css";
+// hook
 import useDocument from "../hooks/useDocument";
+// component
 import ProjectSummary from "../component/ProjectSummary";
 import ProjectComment from "../component/ProjectComment";
 

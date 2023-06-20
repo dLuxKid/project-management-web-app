@@ -1,7 +1,12 @@
-import React, { useCallback, useEffect, useState } from "react";
+// react
+import React, { useEffect, useState } from "react";
+// styles
 import "../styles/dashboard.css";
+// model
 import { projectDocument } from "../types/model";
+// componment
 import ProjectList from "./ProjectList";
+// hook
 import { useAuthContext } from "../context/useContext";
 
 const filterList = [
@@ -26,7 +31,7 @@ const ProjectFilter: React.FC<Props> = ({ project }) => {
 
   const { user } = useAuthContext();
 
-  const filterProjects = useCallback((filter: string) => {
+  const filterProjects = (filter: string) => {
     switch (filter) {
       case "all":
         setFilteredProject(project);
@@ -44,7 +49,7 @@ const ProjectFilter: React.FC<Props> = ({ project }) => {
         setFilteredProject(project.filter((i) => i.category === filter));
         break;
     }
-  }, []);
+  };
 
   useEffect(() => {
     filterProjects(filter);

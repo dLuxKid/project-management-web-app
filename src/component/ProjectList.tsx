@@ -1,7 +1,11 @@
+// react
 import React from "react";
-import "../styles/projectList.css";
-import { projectDocument, onTheProjectType } from "../types/model";
 import { NavLink } from "react-router-dom";
+// styles
+import "../styles/projectList.css";
+// model
+import { projectDocument, onTheProjectType } from "../types/model";
+// component
 import Avatar from "./Avatar";
 
 type Props = {

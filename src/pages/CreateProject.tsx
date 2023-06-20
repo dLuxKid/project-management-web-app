@@ -1,16 +1,22 @@
+// react
 import React, { useEffect, useReducer, useState } from "react";
+import { useNavigate } from "react-router-dom";
+// styles
 import "../styles/createProject.css";
+// component
 import Select from "react-select";
+// hooks
 import useFirestore from "../hooks/useFirestore";
+import { useAuthContext } from "../context/useContext";
+// model
 import {
   docs,
   onTheProjectType,
   submittedProjectDetails,
 } from "../types/model";
+// firebase
 import { Timestamp, addDoc, collection } from "firebase/firestore";
-import { useAuthContext } from "../context/useContext";
 import { db } from "../firebase/firebase";
-import { useNavigate } from "react-router-dom";
 
 // form state
 const initialState = {

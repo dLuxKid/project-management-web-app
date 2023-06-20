@@ -1,11 +1,17 @@
+// react
 import React, { useState } from "react";
-import { onTheProjectType, projectDocument } from "../types/model";
-import Avatar from "./Avatar";
+import { useNavigate } from "react-router-dom";
+// styles
 import "../styles/projectDetails.css";
+// model
+import { onTheProjectType, projectDocument } from "../types/model";
+// component
+import Avatar from "./Avatar";
+// hook
 import { useAuthContext } from "../context/useContext";
+// firebase
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
-import { useNavigate } from "react-router-dom";
 
 type Props = {
   project: projectDocument;

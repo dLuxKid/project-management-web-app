@@ -1,5 +1,8 @@
+// react
 import { useState } from "react";
+//  model
 import { createUserType, loginUserType } from "../types/model.js";
+// firebase
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -7,18 +10,20 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth, db, storage } from "../firebase/firebase.js";
-import { useAuthContext } from "../context/useContext.js";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
+// context hook
+import { useAuthContext } from "../context/useContext.js";
 
 const useAuth = () => {
+  // form states
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
 
   const { dispatch, user } = useAuthContext();
 
-  //   signup function
+  // signup function
   const signup = ({ email, password, username, thumbNail }: createUserType) => {
     setPending(true);
     setError(null);
@@ -60,19 +65,23 @@ const useAuth = () => {
 
         // dispatch user
         dispatch({ type: "LOGIN", payload: user });
+
+        // update state
         setError(null);
         setPending(false);
         setSuccess(true);
       })
       .catch((error) => {
+        // handle error
         const errorMessage = error.message;
+        // update state
         setError(errorMessage);
         setPending(false);
         setSuccess(false);
       });
   };
 
-  //   login function
+  // login function
   const login = ({ email, password }: loginUserType) => {
     setPending(true);
     setError(null);
@@ -81,25 +90,32 @@ const useAuth = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
+
+        // dispatch user
         dispatch({ type: "LOGIN", payload: user });
+
         // update online status
         const uid = user.uid;
         await updateDoc(doc(db, "users", uid), {
           online: true,
         });
+
+        // update state
         setError(null);
         setPending(false);
         setSuccess(true);
       })
       .catch((error) => {
+        // handle error
         const errorMessage = error.message;
+        // update state
         setError(errorMessage);
         setPending(false);
         setSuccess(false);
       });
   };
 
-  //   log out function
+  // log out function
   const logout = async () => {
     setError(null);
     setPending(true);
@@ -111,13 +127,22 @@ const useAuth = () => {
         await updateDoc(doc(db, "users", uid), {
           online: false,
         });
+
+        // dispatch logout
+        dispatch({ type: "LOGOUT" });
+
+        // update state
         setError(null);
         setPending(false);
-        dispatch({ type: "LOGOUT" });
+        setSuccess(true);
       })
       .catch((error) => {
-        setError(error.message);
+        // handle error
+        const errorMessage = error.message;
+        // update state
+        setError(errorMessage);
         setPending(false);
+        setSuccess(false);
       });
   };
 

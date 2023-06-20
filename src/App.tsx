@@ -1,3 +1,4 @@
+// react
 import React, { useEffect, useState } from "react";
 import { Route, Routes, Outlet, Navigate } from "react-router-dom";
 // styles
@@ -8,28 +9,21 @@ import CreateProject from "./pages/CreateProject";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ProjectDetails from "./pages/ProjectDetails";
+// components
 import Navbar from "./component/Navbar";
 import Sidebar from "./component/Sidebar";
-import { useAuthContext } from "./context/useContext";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase/firebase";
-import OnlineUsers from "./component/OnlineUsers";
 import Error from "./component/Error";
+import OnlineUsers from "./component/OnlineUsers";
+// hooks
+import { useAuthContext } from "./context/useContext";
 
 const App: React.FC = () => {
-  const { dispatch, authIsReady, user } = useAuthContext();
+  const { authIsReady, user } = useAuthContext();
 
   const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) =>
-      dispatch({ type: "AUTH_IS_READY", payload: user })
-    );
-    unsub();
-    return () => unsub();
-  }, []);
-
-  useEffect(() => {
+    // logic to monitor screen width
     const screenResize = () => {
       setScreenWidth(window.innerWidth);
     };

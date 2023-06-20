@@ -1,8 +1,9 @@
-// REACT
+// react
 import { useReducer, useEffect } from "react";
-// FIREBASE
+// firebase
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { db } from "../firebase/firebase";
+// model
 import { firestoreReducerActions, firestoreState } from "../types/model";
 
 // state

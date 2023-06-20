@@ -1,7 +1,10 @@
+// react
 import React, { useReducer, useEffect } from "react";
-import "../styles/signup.css";
-import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+// styles
+import "../styles/signup.css";
+// hook
+import useAuth from "../hooks/useAuth";
 
 const initialState = {
   username: "",

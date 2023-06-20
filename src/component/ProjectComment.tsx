@@ -1,9 +1,15 @@
+// react
 import React, { useState } from "react";
+// hook
 import { useAuthContext } from "../context/useContext";
+// firebse
 import { updateDoc, doc, Timestamp, arrayUnion } from "firebase/firestore";
 import { db } from "../firebase/firebase";
+// styles
 import "../styles/projectDetails.css";
+// model
 import { projectDocument } from "../types/model";
+// components
 import Avatar from "./Avatar";
 import { formatDistanceToNow } from "date-fns";
 

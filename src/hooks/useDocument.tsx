@@ -1,6 +1,9 @@
-import { doc, onSnapshot } from "firebase/firestore";
+// react
 import { useEffect, useState } from "react";
+// firebase
+import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/firebase";
+// model
 import { projectDocument } from "../types/model";
 
 const useDocument = (collection: string, id: string) => {

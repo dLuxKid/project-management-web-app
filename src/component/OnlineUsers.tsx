@@ -1,13 +1,13 @@
-import React from "react";
 // styles
 import "../styles/onlineUsers.css";
+// hooks
 import useFirestore from "../hooks/useFirestore";
+// model
 import { docs } from "../types/model";
+// component
 import Avatar from "./Avatar";
 
-type Props = {};
-
-const OnlineUsers: React.FC<Props> = () => {
+const OnlineUsers = () => {
   const { error, fetchedDocs } = useFirestore("users");
   return (
     <div className="user-list">
