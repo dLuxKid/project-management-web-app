@@ -8,32 +8,36 @@ const useDocument = (collection: string, id: string) => {
   const [error, setError] = useState<null | string>(null);
 
   useEffect(() => {
-    const unSub = onSnapshot(
-      doc(db, collection, id),
-      (doc) => {
-        if (doc) {
+    const fetchDocuments = () => {
+      const unSub = onSnapshot(
+        doc(db, collection, id),
+        (doc) => {
+          if (!doc.exists()) {
+            setError("No such document exists");
+            return;
+          }
+          const data = doc.data();
           setDocument({
             id: doc.id,
-            assignedUsersList: doc.data()?.assignedUsersList,
-            category: doc.data()?.category,
-            comments: doc.data()?.comments,
-            createdBy: doc.data()?.createdBy,
-            details: doc.data()?.details,
-            dueDate: doc.data()?.dueDate,
-            name: doc.data()?.name,
-            createdAt: doc.data()?.createdAt,
+            assignedUsersList: data.assignedUsersList,
+            category: data.category,
+            comments: data.comments,
+            createdBy: data.createdBy,
+            details: data.details,
+            dueDate: data.dueDate,
+            name: data.name,
+            createdAt: data.createdAt,
           });
           setError(null);
-        } else {
-          setError("no such document exists");
+        },
+        (err) => {
+          console.log(err.message);
+          setError("Failed to get document");
         }
-      },
-      (err) => {
-        console.log(err.message);
-        setError("Failed to get document");
-      }
-    );
-    return () => unSub();
+      );
+      return () => unSub();
+    };
+    fetchDocuments();
   }, [collection, id]);
 
   return { document, error };
