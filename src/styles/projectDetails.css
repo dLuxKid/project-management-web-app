@@ -9,11 +9,17 @@
   background-color: #fff;
   padding: 1rem;
   border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  overflow:scroll;
   overflow-wrap: break-word;
   max-width: 600px;
+
+  ::-webkit-scrollbar {
+  height: 8px; 
+}
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
 }
 
 .project-summary .page-title {
