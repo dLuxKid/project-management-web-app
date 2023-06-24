@@ -11,6 +11,7 @@
   border-radius: 4px;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  max-width: 600px;
 }
 
 .project-summary .page-title {
