@@ -9,7 +9,8 @@
   background-color: #fff;
   padding: 1rem;
   border-radius: 4px;
-  max-width:400px
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .project-summary .page-title {
