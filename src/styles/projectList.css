@@ -25,9 +25,17 @@
 }
 
 .assigned-to {
-  margin-top: 1.25rem;
-  padding-top: 1.125rem;
+  margin-top: 1.125rem;
+  padding-top: 0.5rem;
   border-top: 1px solid #eee;
+      overflow:scroll;
+  ::-webkit-scrollbar {
+  height: 8px; 
+}
+::-webkit-scrollbar-thumb {
+  background-color: #222;
+  border-radius: 4px;
+}
 }
 
 .project-list ul {
