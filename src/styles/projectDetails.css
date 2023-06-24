@@ -9,17 +9,8 @@
   background-color: #fff;
   padding: 1rem;
   border-radius: 4px;
-  overflow:scroll;
   overflow-wrap: break-word;
   max-width: 600px;
-
-  ::-webkit-scrollbar {
-  height: 8px; 
-}
-::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 4px;
-}
 }
 
 .project-summary .page-title {
@@ -50,6 +41,14 @@
 .project-summary .assigned-users {
   display: flex;
   margin: 1.125rem 0;
+    overflow:scroll;
+  ::-webkit-scrollbar {
+  height: 8px; 
+}
+::-webkit-scrollbar-thumb {
+  background-color: #222;
+  border-radius: 4px;
+}
 }
 
 .project-summary .assigned-users .avatar {
