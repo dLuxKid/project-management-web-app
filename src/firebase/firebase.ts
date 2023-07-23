@@ -4,13 +4,13 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB5sUlNHjqD_YDBrm1zfjOdlOLTVk7GSts",
-  authDomain: "hotelapp-f09e0.firebaseapp.com",
-  projectId: "hotelapp-f09e0",
-  storageBucket: "hotelapp-f09e0.appspot.com",
-  messagingSenderId: "682244615537",
-  appId: "1:682244615537:web:53a9e0c8453267c17c5ad0",
-  measurementId: "G-BP1N17S6EF",
+  apiKey: "AIzaSyBqJa3a03a32G8y6T7sgs8Gfl6xJWzXis4",
+  authDomain: "collabor8-75718.firebaseapp.com",
+  projectId: "collabor8-75718",
+  storageBucket: "collabor8-75718.appspot.com",
+  messagingSenderId: "90152451235",
+  appId: "1:90152451235:web:1dd23ab6e66d5f8ce71316",
+  measurementId: "G-CTE9W5FPKZ",
 };
 
 // Initialize Firebase

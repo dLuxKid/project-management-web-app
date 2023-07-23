@@ -76,6 +76,12 @@ textarea {
   width: 100%;
   border: 1px solid #ddd;
   border-radius: 4px;
+  outline: 0;
+}
+
+input:focus,
+textarea:focus {
+  border: 2px solid var(--primary-color);
 }
 
 textarea {
