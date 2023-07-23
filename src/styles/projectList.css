@@ -25,9 +25,10 @@
 }
 
 .assigned-to {
-  margin-top: 1.25rem;
-  padding-top: 1.125rem;
+  margin-top: 1.125rem;
+  padding-top: 0.5rem;
   border-top: 1px solid #eee;
+      overflow:scroll;
 }
 
 .project-list ul {

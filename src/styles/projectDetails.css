@@ -9,6 +9,8 @@
   background-color: #fff;
   padding: 1rem;
   border-radius: 4px;
+  overflow-wrap: break-word;
+  max-width: 600px;
 }
 
 .project-summary .page-title {
@@ -39,6 +41,7 @@
 .project-summary .assigned-users {
   display: flex;
   margin: 1.125rem 0;
+    overflow:scroll;
 }
 
 .project-summary .assigned-users .avatar {
