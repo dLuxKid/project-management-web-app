@@ -1,6 +1,7 @@
 ---
 
-# Collabor8 - Project Management Site
+# Collabor8 - Project Management Site.
+
 ## Introduction
 **Collabor8** is a dynamic project management site designed to empower teams in efficiently managing projects, assigning tasks, and fostering seamless collaboration.
 
