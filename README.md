@@ -26,16 +26,6 @@ To get started with Collabor8, follow these steps:
 2. Navigate to the project directory.
 3. Run `npm install` to install dependencies.
 
-## Usage
-1. #### Navigating Collabor8
-Learn how to effectively navigate the Collabor8 project management site.
-2. #### Managing Projects
-Discover how to create, manage, and track projects using Collabor8.
-3. #### Task Assignment
-Learn how to assign tasks to team members and monitor their progress.
-4. #### Collaboration
-Explore features that foster seamless communication and collaboration within your team.
-
 ## License
 This project is licensed under the MIT License.
 
